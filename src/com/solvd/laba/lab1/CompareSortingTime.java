@@ -1,0 +1,51 @@
+package com.solvd.laba.lab1;
+
+import java.util.Arrays;
+import java.util.Random;
+
+public class CompareSortingTime {
+    public static void insertionSort (int[] arr) {
+        //iterate over the array from second element
+        for(int i = 1; i < arr.length; i ++) {
+            //set key to current element
+            int key = arr[i];
+            //initialize index to the left of the current element
+            int j = i - 1;
+            //shift the element to the right using while loop
+            while(j >= 0 && arr[j] > key) {
+                arr[j + 1] = arr[j];
+                j--;
+            }
+            //set key to next element
+            arr[j + 1] = key;
+        }
+    }
+
+    public static void main(String[] args) {
+        //initialize a big size array of size 10,000
+        int[] array = new int[10000];
+
+        //initialize a new random object
+        Random rand = new Random();
+
+        //iterate over array to store random number
+        for(int i = 0; i < array.length; i++) {
+            array[i] = rand.nextInt(10000) + 1;
+        }
+
+        //calculate time execution for insertion sort in milliseconds
+        long startTime = System.currentTimeMillis();
+        insertionSort(array);   //call method insertionSort
+        long endTime = System.currentTimeMillis();
+
+        //calculate time execution for selection sort in milliseconds
+        long startTime2 = System.currentTimeMillis();
+        SelectionSort.selectionSort(array);     //call method selectionSort from Selection class
+        long endTime2 = System.currentTimeMillis();
+
+        //Print the outputs
+        //System.out.println(Arrays.toString(array));
+        System.out.println("Insertion sort - Time duration: " + (endTime - startTime) + " milliseconds" );
+        System.out.println("Selection sort - Time duration: " + (endTime2 - startTime2) + " milliseconds");
+    }
+}
