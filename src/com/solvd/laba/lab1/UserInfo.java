@@ -11,7 +11,7 @@ public class UserInfo {
             System.out.println("Name: " + name);
         }
         else {
-            System.out.println("No name provided.");
+            System.out.println("Please include name");
         }
     }
 }
