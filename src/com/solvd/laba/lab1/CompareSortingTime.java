@@ -33,6 +33,9 @@ public class CompareSortingTime {
             array[i] = rand.nextInt(10000) + 1;
         }
 
+        //create copy of array
+        int[] arr1 = Arrays.copyOf(array, array.length);
+
         //calculate time execution for insertion sort in milliseconds
         long startTime = System.currentTimeMillis();
         insertionSort(array);   //call method insertionSort
@@ -40,7 +43,7 @@ public class CompareSortingTime {
 
         //calculate time execution for selection sort in milliseconds
         long startTime2 = System.currentTimeMillis();
-        SelectionSort.selectionSort(array);     //call method selectionSort from Selection class
+        SelectionSort.selectionSort(arr1);     //call method selectionSort from Selection class
         long endTime2 = System.currentTimeMillis();
 
         //Print the outputs
