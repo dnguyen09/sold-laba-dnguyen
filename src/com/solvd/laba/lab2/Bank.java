@@ -1,11 +1,11 @@
 package com.solvd.laba.lab2;
 
 public class Bank {
-    //declare properties
+    /*declare properties*/
     private String name;
     private String location;
 
-    //constructor
+    /*constructor*/
     public Bank (String name, String location) {
         this.name = name;
         this.location = location;
@@ -15,7 +15,7 @@ public class Bank {
         this("","");
     }
 
-    //getter and setter
+    /*getter and setter*/
     public void setName(String name) {
         this.name = name;
     }
