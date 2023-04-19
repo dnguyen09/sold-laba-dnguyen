@@ -1,18 +1,19 @@
 package com.solvd.laba.lab2;
 
+import java.util.List;
+
 public class Bank {
     /*declare properties*/
     private String name;
-    private String location;
+    private List<Account> accounts;
 
     /*constructor*/
-    public Bank (String name, String location) {
+    public Bank (String name) {
         this.name = name;
-        this.location = location;
     }
 
     public Bank() {
-        this("","");
+        this("");
     }
 
     /*getter and setter*/
@@ -22,13 +23,20 @@ public class Bank {
 
     public String getName() {
         return name;
+    };
+
+    public List<Account> getAccounts() {
+        return accounts;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setAccounts(List<Account> accounts) {
+        this.accounts = accounts;
     }
 
-    public String getLocation() {
-        return location;
+    /*methods*/
+    public void addAccount(Account account) {
+        this.accounts.add(account);
     }
+
+
 }

@@ -2,11 +2,11 @@ package com.solvd.laba.lab2;
 
 public class CreditScore {
     /*declare properties*/
-    private int creditScore;
+    private int score;
 
     /*constructors*/
     public CreditScore(int creditScore) {
-        this.creditScore = creditScore;
+        this.score = creditScore;
     }
 
     public CreditScore() {
@@ -14,11 +14,11 @@ public class CreditScore {
     }
 
     /*Getters and setters*/
-    public int getCreditScore() {
-        return creditScore;
+    public int getScore() {
+        return score;
     }
 
-    public void setCreditScore(int creditScore) {
-        this.creditScore = creditScore;
+    public void setScore(int score) {
+        this.score = score;
     }
 }

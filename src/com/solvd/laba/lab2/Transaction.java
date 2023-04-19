@@ -4,15 +4,15 @@ public class Transaction {
     /*declare properties*/
     private int transactionId;
     private double amount;
-    private Account sourceAccount;
-    private Account receivedAccount;
+    private Account fromAccount;
+    private Account toAccount;
 
     /*constructors*/
-    public Transaction(int transactionId, double amount, Account sourceAccount, Account receivedAccount) {
+    public Transaction(int transactionId, double amount, Account fromAccount, Account toAccount) {
         this.transactionId = transactionId;
         this.amount = amount;
-        this.sourceAccount = sourceAccount;
-        this.receivedAccount = receivedAccount;
+        this.fromAccount = fromAccount;
+        this.toAccount = toAccount;
     }
 
     public Transaction(int transactionId, double amount) {
@@ -25,7 +25,6 @@ public class Transaction {
     }
 
     /*Getters and setters*/
-
     public int getTransactionId() {
         return transactionId;
     }
@@ -42,19 +41,22 @@ public class Transaction {
         this.amount = amount;
     }
 
-    public Account getSourceAccount() {
-        return sourceAccount;
+    public Account getFromAccount() {
+        return fromAccount;
     }
 
-    public void setSourceAccount(Account sourceAccount) {
-        this.sourceAccount = sourceAccount;
+    public void setFromAccount(Account fromAccount) {
+        this.fromAccount = fromAccount;
     }
 
-    public Account getReceivedAccount() {
-        return receivedAccount;
+    public Account getToAccount() {
+        return toAccount;
     }
 
-    public void setReceivedAccount(Account receivedAccount) {
-        this.receivedAccount = receivedAccount;
+    public void setToAccount(Account toAccount) {
+        this.toAccount = toAccount;
     }
+
+    /*Methods*/
+
 }

@@ -45,4 +45,13 @@ public class Account {
     public void setAccountType(String accountType) {
         this.accountType = accountType;
     }
+
+    /*Methods*/
+    public void deposit(double amount) {
+        this.balance += amount;
+    }
+
+    public void withdraw(double amount) {
+        this.balance -= amount;
+    }
 }
