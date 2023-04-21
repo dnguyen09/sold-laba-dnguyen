@@ -1,20 +1,21 @@
 package com.solvd.laba.lab2;
 
-public class CheckingAccount {
+public class CheckingAccount extends Account {
     /*declare properties*/
     private double monthlyFee;
-    private int maxWithdrawal;
-    private double minimumBalance;
 
     /*constructors*/
-    public CheckingAccount(double monthlyFee, int maxWithdrawal, double minimumBalance) {
+    public CheckingAccount(int accountNumber, String accountType, Customer cus, double monthlyFee, double balance) {
+        super(accountNumber, balance, accountType, cus);
         this.monthlyFee = monthlyFee;
-        this.maxWithdrawal = maxWithdrawal;
-        this.minimumBalance = minimumBalance;
     }
 
-    public CheckingAccount() {
-        this(0,0,0);
+    public CheckingAccount(Account account, String accountType, double balance, double monthlyFee) {
+        this(account.getAccountNumber(), accountType, account.getCustomer(), monthlyFee, balance);
+    }
+
+    public CheckingAccount(Account account, double monthlyFee) {
+        this(account.getAccountNumber(), account.getAccountType(), account.getCustomer(), monthlyFee, account.getBalance());
     }
 
     /*getters and setters*/
@@ -26,19 +27,22 @@ public class CheckingAccount {
         this.monthlyFee = monthlyFee;
     }
 
-    public int getMaxWithdrawal() {
-        return maxWithdrawal;
+    /*methods*/
+    public boolean isMonthlyFee() {
+        if (this.getBalance() < 500) {
+            return true;
+        } else {
+
+            return false;
+        }
     }
 
-    public void setMaxWithdrawal(int maxWithdrawal) {
-        this.maxWithdrawal = maxWithdrawal;
-    }
-
-    public double getMinimumBalance() {
-        return minimumBalance;
-    }
-
-    public void setMinimumBalance(double minimumBalance) {
-        this.minimumBalance = minimumBalance;
+    public void chargeMonthlyFee() {
+        if (isMonthlyFee()) {
+            this.setBalance(this.getBalance() - monthlyFee);
+            System.out.println("$" + monthlyFee + " has been deducted as monthly fee.");
+        } else {
+            System.out.println("You have no monthly service fee");
+        }
     }
 }

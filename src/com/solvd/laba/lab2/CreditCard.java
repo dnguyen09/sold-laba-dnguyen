@@ -2,26 +2,26 @@ package com.solvd.laba.lab2;
 
 public class CreditCard {
     /*declare properties*/
-    private String holderName;
+    private int creditCardNum;
     private double creditLimit;
 
     /*constructor*/
-    public CreditCard(String holderName, double creditLimit) {
-        this.holderName = holderName;
+    public CreditCard(int creditCardNum, double creditLimit) {
+        this.creditCardNum = creditCardNum;
         this.creditLimit = creditLimit;
     }
 
     public CreditCard() {
-        this("",0);
+        this(0,0);
     }
 
     /*Getters and setters*/
-    public String getHolderName() {
-        return holderName;
+    public int getCreditCardNum() {
+        return creditCardNum;
     }
 
-    public void setHolderName(String holderName) {
-        this.holderName = holderName;
+    public void setCreditCardNum(int creditCardNum) {
+        this.creditCardNum = creditCardNum;
     }
 
     public double getCreditLimit() {
