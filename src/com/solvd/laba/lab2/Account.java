@@ -1,6 +1,8 @@
 package com.solvd.laba.lab2;
 
-public class Account {
+import java.util.Random;
+
+public class Account extends AccountNumber {
     /*declare properties*/
     private int accountNumber;
     private double balance;
@@ -15,14 +17,17 @@ public class Account {
         this.customer = customer;
     }
 
-    public Account(int accountNumber, String accountType, Customer cus) {
+    public Account(int accountNumber, String accountType, Customer customer) {
         this.accountNumber = accountNumber;
         this.accountType = accountType;
-        this.customer = cus;
+        this.customer = customer;
     }
 
-    public Account() {
-        this(0,0,"",null);
+    public Account(Customer customer, double balance) {
+        this.accountNumber = generateNumber();
+        this.balance = balance;
+        this.accountType = "";
+        this.customer = customer;
     }
 
     /*getters and setters*/
@@ -59,13 +64,12 @@ public class Account {
     }
 
     /*Methods*/
-    public void deposit(double amount) {
-        this.balance += amount;
+    @Override
+    public int generateNumber() {
+        String idAccount = "1010";
+        Random random = new Random();
+        int randAccNum = random.nextInt(100000);
+        String accountNum = idAccount + String.valueOf(randAccNum) + String.valueOf(lastAccNum);
+        return Integer.parseInt(accountNum);
     }
-
-    public void withdraw(double amount) {
-        this.balance -= amount;
-    }
-
-
 }

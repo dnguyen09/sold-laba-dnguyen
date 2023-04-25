@@ -1,5 +1,7 @@
 package com.solvd.laba.lab2;
 
+import java.util.Random;
+
 public class CheckingAccount extends Account {
     /*declare properties*/
     private double monthlyFee;
@@ -14,8 +16,12 @@ public class CheckingAccount extends Account {
         this(account.getAccountNumber(), accountType, account.getCustomer(), monthlyFee, balance);
     }
 
-    public CheckingAccount(Account account, double monthlyFee) {
-        this(account.getAccountNumber(), account.getAccountType(), account.getCustomer(), monthlyFee, account.getBalance());
+    public CheckingAccount(Account account, String accountType, double monthlyFee) {
+        super(account.getCustomer(), account.getBalance());
+        this.setAccountType(accountType);
+        this.setBalance(account.getBalance());
+        this.setAccountNumber(generateNumber());
+        this.monthlyFee = monthlyFee;
     }
 
     /*getters and setters*/
@@ -29,20 +35,23 @@ public class CheckingAccount extends Account {
 
     /*methods*/
     public boolean isMonthlyFee() {
-        if (this.getBalance() < 500) {
+        if (getBalance() < 500) {
             return true;
         } else {
-
             return false;
         }
     }
 
-    public void chargeMonthlyFee() {
-        if (isMonthlyFee()) {
-            this.setBalance(this.getBalance() - monthlyFee);
-            System.out.println("$" + monthlyFee + " has been deducted as monthly fee.");
-        } else {
-            System.out.println("You have no monthly service fee");
-        }
+    @Override
+    public int generateNumber() {
+        String idChecking = "1213";
+        Random random = new Random();
+        int randChecking = random.nextInt(100000);
+        //Concat String with lastAccNum to not get same number generated
+        String checkingAccNum = idChecking + String.valueOf(randChecking) + String.valueOf(lastAccNum);
+        lastAccNum++;
+        return Integer.parseInt(checkingAccNum);
     }
+
+
 }

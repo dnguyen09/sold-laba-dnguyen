@@ -54,4 +54,9 @@ public class Customer {
         return Period.between(dateOfBirth, currentDate).getYears();
     }
 
+    @Override
+    public String toString() {
+        return "Name: " + customerName + "\nAge: " + getAge() + "\nCredit Score: " + creditScore;
+    }
+
 }
