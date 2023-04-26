@@ -64,12 +64,19 @@ public class Account extends AccountNumber {
     }
 
     /*Methods*/
+    public void deposit(double amount) {
+        balance += amount;
+        System.out.println("Deposit " + amount + " successful to " + accountType );
+    }
+
+
     @Override
     public int generateNumber() {
         String idAccount = "1010";
         Random random = new Random();
         int randAccNum = random.nextInt(100000);
         String accountNum = idAccount + String.valueOf(randAccNum) + String.valueOf(lastAccNum);
+        lastAccNum++;
         return Integer.parseInt(accountNum);
     }
 }

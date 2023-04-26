@@ -56,7 +56,7 @@ public class Customer {
 
     @Override
     public String toString() {
-        return "Name: " + customerName + "\nAge: " + getAge() + "\nCredit Score: " + creditScore;
+        return "Name: " + customerName + "\nAge: " + getAge() + "\nCredit Score: " + creditScore + "\n";
     }
 
 }

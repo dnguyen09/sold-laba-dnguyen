@@ -70,29 +70,59 @@ public class Bank {
 
     //method to store customer information
     public Account createAccount(Customer customer, int balance) {
-        System.out.println("Congrats, you have became our member");
+        System.out.println("Congrats " + customer.getCustomerName() + ", you have became our member!");
         customerList.add(customer);
         return new Account(customer, balance);
     }
 
+    //method create checking account for customer
     public CheckingAccount createCheckingAccount(Account account) {
+        System.out.println("Customer " + account.getCustomer().getCustomerName() + " open checking account successful");
         return  new CheckingAccount(account, "Checking account", 12);
     }
 
+    //method create saving account for customer
+    public SavingAccount createSavingAccount(Account account, double balance, double interestRate) {
+        System.out.println("Customer " + account.getCustomer().getCustomerName() + " open checking account successful");
+        return new SavingAccount(account, "Saving account", balance, interestRate, 10);
+    }
+
+    //method check monthly service fee for checking account
     public void checkMonthlyFee(CheckingAccount checkingAccount) {
         if (checkingAccount.isMonthlyFee()) {
+            System.out.println("Checking your monthly fee status...");
             System.out.println("Your balance: " + checkingAccount.getBalance() + "\n" +
                     "Your monthly fee is: " + checkingAccount.getMonthlyFee());
             checkingAccount.setBalance(checkingAccount.getBalance() - checkingAccount.getMonthlyFee());
             System.out.println("$" + checkingAccount.getMonthlyFee() + " has been deducted as monthly service fee" + "\n" +
                     "Your balance: " + checkingAccount.getBalance() + "\n" +
-                    "To avoid monthly fee, please have your balance greater than 500");
+                    "To avoid monthly fee, please have your checking account balance greater than 500 \n");
         } else {
-            System.out.println("You have no monthly service fee");
+            System.out.println("Checking your monthly fee status...");
+            System.out.println("You have no monthly service fee\n");
         }
     }
 
-    public void depositCheckingAcc(CheckingAccount acc, double amount) {
-        acc.setBalance(acc.getBalance() + amount);
+    //method checking interest rate for saving account
+    public void checkInterestRate(SavingAccount acc) {
+        if (acc.getBalance() < acc.getMinimumBalance()) {
+            System.out.println("Your Saving account required " + acc.getMinimumBalance() +
+                    " minimum balance to keep the account open");
+        } else {
+            System.out.println("Your interest rate: " + acc.getInterestRate());
+            System.out.println("Your interest earned " + acc.getInterestEarned() + "\n");
+        }
+    }
+
+    public void deposit(Account acc, double amount) {
+        acc.deposit(amount);
+    }
+
+    public int getAccountNumber(Account acc) {
+        return acc.getAccountNumber();
+    }
+
+    public double checkBalance(Account acc) {
+        return acc.getBalance();
     }
 }

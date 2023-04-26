@@ -19,7 +19,6 @@ public class CheckingAccount extends Account {
     public CheckingAccount(Account account, String accountType, double monthlyFee) {
         super(account.getCustomer(), account.getBalance());
         this.setAccountType(accountType);
-        this.setBalance(account.getBalance());
         this.setAccountNumber(generateNumber());
         this.monthlyFee = monthlyFee;
     }
