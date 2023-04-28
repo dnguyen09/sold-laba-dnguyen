@@ -16,26 +16,29 @@ public class Main {
 
         Account account1 = bank.createAccount(cus1, 400);
         Account account2 = bank.createAccount(cus2, 4001);
-        System.out.println(bank.getAccountNumber(account1));
-        System.out.println(bank.getAccountNumber(account2));
+        System.out.println("Account1 number: " + bank.getAccountNumber(account1));
 
         CheckingAccount check1 = bank.createCheckingAccount(account1);
-        System.out.println("Checking number acc1: " + bank.getAccountNumber(check1));
+        System.out.println("acc1: " + bank.getAccountNumber(check1));
         CheckingAccount check2 = bank.createCheckingAccount(account2);
         System.out.println("Checking number acc2 : " + bank.getAccountNumber(check2) + "\n");
+
 
         bank.checkMonthlyFee(check1);
         bank.deposit(check1, 1000);
         System.out.println("Balance acc1: " + bank.checkBalance(check1));
         bank.checkMonthlyFee(check1);
 
-        SavingAccount save1 = bank.createSavingAccount(account1, 1000, 0.15);
+        SavingAccount save1 = bank.createSavingAccount(account1, 0, 0.15);
         System.out.println("Saving number acc1: " + bank.getAccountNumber(save1));
         System.out.println("Saving balance: " + bank.checkBalance(save1));
         bank.checkInterestRate(save1);
         bank.deposit(save1, 2000);
         System.out.println("Saving balance: " + bank.checkBalance(save1));
         bank.checkInterestRate(save1);
+
+        DebitCard debitCard1 = bank.createDebitCard(account1);
+        System.out.println(bank.getInfo(debitCard1));
 
     }
 }

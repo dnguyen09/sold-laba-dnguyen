@@ -16,7 +16,7 @@ public class SavingAccount extends Account {
     }
 
     public SavingAccount(Account account, String accountType, double balance, double interestRate, double minimumBalance) {
-        super(account.getCustomer(), 0);
+        super(account.getCustomer(), balance);
         this.setAccountType(accountType);
         this.setAccountNumber(generateNumber());
         this.interestRate = interestRate;
@@ -45,13 +45,14 @@ public class SavingAccount extends Account {
         return this.getBalance() * (interestRate/100);
     }
 
-    public int generateNumber() {
+    @Override
+    public long generateNumber() {
         String idSaving = "1314";
         Random random = new Random();
-        int randSaving = random.nextInt(100000);
+        int randSaving = random.nextInt(100000) + 1000;
         //Concat String with lastAccNum to not get same number generated
         String SavingAccNum = idSaving + String.valueOf(randSaving) + String.valueOf(lastAccNum);
         lastAccNum++;
-        return Integer.parseInt(SavingAccNum);
+        return Long.parseLong(SavingAccNum);
     }
 }

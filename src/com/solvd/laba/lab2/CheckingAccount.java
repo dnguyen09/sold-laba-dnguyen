@@ -7,7 +7,7 @@ public class CheckingAccount extends Account {
     private double monthlyFee;
 
     /*constructors*/
-    public CheckingAccount(int accountNumber, String accountType, Customer cus, double monthlyFee, double balance) {
+    public CheckingAccount(long accountNumber, String accountType, Customer cus, double monthlyFee, double balance) {
         super(accountNumber, balance, accountType, cus);
         this.monthlyFee = monthlyFee;
     }
@@ -42,15 +42,14 @@ public class CheckingAccount extends Account {
     }
 
     @Override
-    public int generateNumber() {
+    public long generateNumber() {
         String idChecking = "1213";
         Random random = new Random();
-        int randChecking = random.nextInt(100000);
+        int randChecking = random.nextInt(100000) + 1000;
         //Concat String with lastAccNum to not get same number generated
         String checkingAccNum = idChecking + String.valueOf(randChecking) + String.valueOf(lastAccNum);
         lastAccNum++;
-        return Integer.parseInt(checkingAccNum);
+        return Long.parseLong(checkingAccNum);
     }
-
 
 }

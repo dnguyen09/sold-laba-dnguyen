@@ -3,7 +3,7 @@ package com.solvd.laba.lab2;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Bank {
+final public class Bank {
     /*declare properties*/
     private String name;
     private String location;
@@ -83,8 +83,14 @@ public class Bank {
 
     //method create saving account for customer
     public SavingAccount createSavingAccount(Account account, double balance, double interestRate) {
-        System.out.println("Customer " + account.getCustomer().getCustomerName() + " open checking account successful");
+        System.out.println("Customer " + account.getCustomer().getCustomerName() + " open saving account successful");
         return new SavingAccount(account, "Saving account", balance, interestRate, 10);
+    }
+
+    //method creating debit card
+    public DebitCard createDebitCard(Account account) {
+        System.out.println("Customer " + account.getCustomer().getCustomerName() + " has created a credit card");
+        return new DebitCard(account,"Debit card", 1990);
     }
 
     //method check monthly service fee for checking account
@@ -114,11 +120,16 @@ public class Bank {
         }
     }
 
+    //method get card information
+    public String getInfo(Account account) {
+        return account.toString();
+    }
+
     public void deposit(Account acc, double amount) {
         acc.deposit(amount);
     }
 
-    public int getAccountNumber(Account acc) {
+    public long getAccountNumber(Account acc) {
         return acc.getAccountNumber();
     }
 

@@ -4,20 +4,20 @@ import java.util.Random;
 
 public class Account extends AccountNumber {
     /*declare properties*/
-    private int accountNumber;
+    private long accountNumber;
     private double balance;
     private String accountType;
     private Customer customer;
 
     /*constructors*/
-    public Account(int accountNumber, double balance, String accountType, Customer customer) {
+    public Account(long accountNumber, double balance, String accountType, Customer customer) {
         this.accountNumber = accountNumber;
         this.balance = balance;
         this.accountType = accountType;
         this.customer = customer;
     }
 
-    public Account(int accountNumber, String accountType, Customer customer) {
+    public Account(long accountNumber, String accountType, Customer customer) {
         this.accountNumber = accountNumber;
         this.accountType = accountType;
         this.customer = customer;
@@ -31,11 +31,11 @@ public class Account extends AccountNumber {
     }
 
     /*getters and setters*/
-    public int getAccountNumber() {
+    public long getAccountNumber() {
         return accountNumber;
     }
 
-    public void setAccountNumber(int accountNumber) {
+    public void setAccountNumber(long accountNumber) {
         this.accountNumber = accountNumber;
     }
 
@@ -69,14 +69,18 @@ public class Account extends AccountNumber {
         System.out.println("Deposit " + amount + " successful to " + accountType );
     }
 
+    static {
+        lastAccNum = 0;
+    }
 
     @Override
-    public int generateNumber() {
+    public long generateNumber() {
         String idAccount = "1010";
         Random random = new Random();
-        int randAccNum = random.nextInt(100000);
+        int randAccNum = random.nextInt(100000) + 1000;    //generate  integer (1000 - 99999)
         String accountNum = idAccount + String.valueOf(randAccNum) + String.valueOf(lastAccNum);
         lastAccNum++;
-        return Integer.parseInt(accountNum);
+        return Long.parseLong(accountNum);
     }
+
 }
