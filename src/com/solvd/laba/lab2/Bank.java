@@ -1,13 +1,12 @@
 package com.solvd.laba.lab2;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedList;
 
 final public class Bank {
     /*declare properties*/
     private String name;
     private String location;
-    private List<Account> accounts;
     private final ArrayList<Customer> customerList;
 
     /*constructor*/
@@ -38,39 +37,28 @@ final public class Bank {
         this.location = location;
     }
 
-    public List<Account> getAccounts() {
-        return accounts;
-    }
-
     public ArrayList<Customer> getCustomerList() {
         return customerList;
     }
 
-    public void setAccounts(List<Account> accounts) {
-        this.accounts = accounts;
-    }
-
     /*methods*/
-    public void addAccount(Account account) {
-        this.accounts.add(account);
-    }
 
     //method to print message if customer is qualified
-    public String makeCreditCheck(Customer customer) {
+    public String makeCreditCheck(Customer customer) throws CreditCheckException {
         String qualificationStatus = CreditCheck.isQualifyAcc(customer);
         System.out.println("Hi " + customer.getCustomerName() + "! based on your date of birth " +
-                customer.getDateOfBirth() + " and your credit score " + customer.getCreditScore() +"\n" +
+                customer.getDateOfBirth() + " and your credit score " + customer.getCreditScore() + "\n" +
                 "Here are your result:");
         if (qualificationStatus.equals("Qualified")) {
             return "Congratulation! You are qualified for credit.\n";
         } else {
-            return "Sorry, your account does not qualify \n" + qualificationStatus;
+            return ("Sorry, your account does not qualify \n" + qualificationStatus);
         }
     }
 
     //method to store customer information
     public Account createAccount(Customer customer, int balance) {
-        System.out.println("Congrats " + customer.getCustomerName() + ", you have became our member!");
+        System.out.println("Congrats " + customer.getCustomerName() + ", you have became our customer!");
         customerList.add(customer);
         return new Account(customer, balance);
     }
@@ -89,8 +77,14 @@ final public class Bank {
 
     //method creating debit card
     public DebitCard createDebitCard(Account account) {
-        System.out.println("Customer " + account.getCustomer().getCustomerName() + " has created a credit card");
+        System.out.println("Customer " + account.getCustomer().getCustomerName() + " has created a debit card");
         return new DebitCard(account,"Debit card", 1990);
+    }
+
+    //method creating credit card
+    public CreditCard createCreditCard(Account account) {
+        System.out.println("Customer " + account.getCustomer().getCustomerName() + " has created a credit card");
+        return new CreditCard(account,"Credit card",1021);
     }
 
     //method check monthly service fee for checking account
@@ -109,12 +103,21 @@ final public class Bank {
         }
     }
 
+    //method checking minimum payment for credit card
+    public void checkMinPayment(CreditCard creditCard) {
+        System.out.println("\nChecking your monthly minimum payment...");
+        System.out.println("Minimum payment this month: " + creditCard.calculateMinPayment());
+        System.out.println("Your outstanding balance: " + creditCard.getBalance());
+    }
+
     //method checking interest rate for saving account
     public void checkInterestRate(SavingAccount acc) {
         if (acc.getBalance() < acc.getMinimumBalance()) {
+            System.out.println("Checking your interest rate...");
             System.out.println("Your Saving account required " + acc.getMinimumBalance() +
                     " minimum balance to keep the account open");
         } else {
+            System.out.println("Checking your interest rate...");
             System.out.println("Your interest rate: " + acc.getInterestRate());
             System.out.println("Your interest earned " + acc.getInterestEarned() + "\n");
         }
@@ -129,11 +132,35 @@ final public class Bank {
         acc.deposit(amount);
     }
 
+    public void withdrawal(Account account, double amount) {
+        //throw exception if a withdrawal is made from credit card
+        if (account instanceof CreditCard) {
+            throw new WithdrawalException("Cannot withdraw from a credit card.");
+        }
+        account.withdrawal(amount);
+    }
+
+    public void makePurchase(Account account, double amount) {
+        account.makePurchase(amount);
+    }
+
+    //method to get transaction history of account
+    public LinkedList<Transaction> getTransactionsHistory(Account account) {
+        return account.getTransactionList();
+    }
+
+    //method to get account number from account
     public long getAccountNumber(Account acc) {
         return acc.getAccountNumber();
     }
 
-    public double checkBalance(Account acc) {
-        return acc.getBalance();
+    public String checkBalance(CreditCard acc) {
+        return "Your Outstanding balance: " + acc.getBalance()+ "\n";
     }
+
+    public String checkBalance(Account acc) {
+        return "Your balance: " + acc.getBalance()+ "\n";
+    }
+
+
 }

@@ -5,31 +5,40 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
 
-public class DebitCard extends Account{
+public class DebitCard extends Account implements CardCreating{
     /*declare properties*/
-    private long cardNumber;
+    private long debitCardNumb;
     private String expirationDate;
     private int cvv;
     private int pin;
 
     /*constructor*/
+    public DebitCard(long accountNumber, String accountType, Customer customer, long debitCardNumb, String expirationDate, int cvv, int pin) {
+        super(accountNumber, accountType, customer);
+        this.debitCardNumb = debitCardNumb;
+        this.expirationDate = expirationDate;
+        this.cvv = cvv;
+        this.pin = pin;
+    }
+
     public DebitCard(Account account, String accountType, int pin) {
         super(account.getCustomer(), account.getBalance());
-        this.setAccountNumber(account.getAccountNumber());
-        this.cardNumber = generateNumber();
+        this.setAccountType(accountType);
+        this.debitCardNumb = generateNumber();
         this.expirationDate = generateExpirationDate();
         this.cvv = generateCVV();
         this.pin = pin;
-        this.setAccountType(accountType);
     }
+
+
 
     /*Getters and Setters*/
-    public long getCardNumber() {
-        return cardNumber;
+    public long getDebitCardNumb() {
+        return debitCardNumb;
     }
 
-    public void setCardNumber(int cardNumber) {
-        this.cardNumber = cardNumber;
+    public void setDebitCardNumb(int debitCardNumb) {
+        this.debitCardNumb = debitCardNumb;
     }
 
     public int getCvv() {
@@ -57,17 +66,19 @@ public class DebitCard extends Account{
     }
 
     /*methods*/
+    //method to generate debit card number
     @Override
     public long generateNumber() {
-        String idCredit = "6677";
+        String idDebit = "6677";
         Random random = new Random();
-        int randCredit = random.nextInt(100000) + 1000;
+        int randDebit = random.nextInt(100000) + 1000;
         //Concat String with lastAccNum to not get same number generated
-        String creditCardNum = idCredit + String.valueOf(randCredit) + String.valueOf(lastAccNum);
+        String DebitCardNum = idDebit + String.valueOf(randDebit) + String.valueOf(lastAccNum);
         lastAccNum++;
-        return Long.parseLong(creditCardNum);
+        return Long.parseLong(DebitCardNum);
     }
 
+    //method to create expiration date
     public String generateExpirationDate() {
         Calendar dateNow = Calendar.getInstance();
         dateNow.setTime(new Date());
@@ -76,33 +87,34 @@ public class DebitCard extends Account{
         return dateFormat.format(dateNow.getTime());
     }
 
+    //method to create CVV
     public int generateCVV() {
         try {
             Random random = new Random();
             int cvv = random.nextInt(900) + 100;
 
             //check if cvv follow format
-            if (!isValidCVV(cvv)) {
+            if (isValidCVV(cvv)) {
                 throw new CVVException("Invalid cvv: " + cvv);
             }
             return cvv;
-        }
-        catch (CVVException e) {
+        } catch (CVVException e) {
             System.out.println("Error: " + e.getMessage());
             return -1;
         }
     }
 
-    private boolean isValidCVV(int cvv) {
-        return cvv >= 100 && cvv <= 999;
+    //method to check if a CVV is valid
+    public boolean isValidCVV(int cvv) {
+        return cvv < 100 || cvv > 999;
     }
 
     @Override
     public String toString() {
         return ("Name: " + getCustomer().getCustomerName() + "\n" +
-                "Debit card number: " + getCardNumber() + "\n" +
+                "Debit card number: " + getDebitCardNumb() + "\n" +
                 "Expiration date : " + getExpirationDate() + "    " +
-                "CVV: " + getCvv() + " \n" + "Pin: " + getPin());
+                "CVV: " + getCvv() + " \n" + "Pin: " + getPin() + "\n");
     }
 
 }
