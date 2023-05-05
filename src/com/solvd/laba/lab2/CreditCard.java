@@ -1,11 +1,14 @@
 package com.solvd.laba.lab2;
 
+import com.solvd.laba.lab2.exception.CVVException;
+import com.solvd.laba.lab2.interfaces.CardCreating;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
 
-public class CreditCard extends Account implements CardCreating{
+public class CreditCard extends Account implements CardCreating {
     /*declare properties*/
     private long creditCardNum;
     private double creditLimit;
@@ -25,7 +28,7 @@ public class CreditCard extends Account implements CardCreating{
     }
 
     public CreditCard(Account account, String accountType, int pin) {
-        super(account.getCustomer(),0);
+        super(account.getCustomer(), 0);
         this.setAccountType(accountType);
         this.creditCardNum = generateNumber();
         this.expirationDate = generateExpirationDate();
@@ -33,8 +36,9 @@ public class CreditCard extends Account implements CardCreating{
         this.cvv = generateCVV();
         this.pin = pin;
     }
+
     /*Getters and setters*/
-    public long  getCreditCardNum() {
+    public long getCreditCardNum() {
         return creditCardNum;
     }
 
@@ -110,9 +114,8 @@ public class CreditCard extends Account implements CardCreating{
                 throw new CVVException("Invalid cvv: " + cvv);
             }
             return cvv;
-        }
-        catch (CVVException e) {
-            System.out.println("Error: " + e.getMessage());
+        } catch (CVVException e) {
+            logger.info("Error: " + e.getMessage());
             return -1;
         }
     }
@@ -149,11 +152,11 @@ public class CreditCard extends Account implements CardCreating{
         if (getBalance() + amount < getCreditLimit()) {
             outStandingBalance += amount;
             setBalance(outStandingBalance);
-            System.out.println("Purchase successful");
+            logger.info("Purchase successful");
             getTransactionList().add(new Transaction(amount, "Purchase"));
-            System.out.println("Purchase " + amount + " successful from " + getAccountType());
+            logger.info("Purchase " + amount + " successful from " + getAccountType());
         } else {
-            System.out.println("Purchase failed! the purchase amount excess credit limit on your card");
+            logger.info("Purchase failed! the purchase amount excess credit limit on your card");
         }
     }
 
